@@ -1,0 +1,1094 @@
+# MASTER PROMPT – SMART SOCIETY 4.0
+## Resident Mobile App Integrated with Smart Society 3.0 Community Website
+### Complete Design, Development, Integration and Deployment Instructions
+
+**Project:** Smart Society 4.0 – My Community App  
+**Application Type:** Installable Progressive Web App (PWA)  
+**Target Users:** Apartment owners, tenants, Treasurer, Secretary and authorized committee members  
+**Pilot Society:** Happy Homes Palace-B Owners Welfare Association  
+**Initial Pilot:** Flats 101–110  
+**Country:** India
+
+---
+
+# 1. YOUR ROLE
+
+Act as a professional software development team consisting of:
+
+- Senior Mobile Application Architect
+- Progressive Web App Developer
+- UI/UX Designer
+- Full-Stack Developer
+- Authentication and Cybersecurity Engineer
+- Google Apps Script Developer
+- Google Sheets Database Specialist
+- Financial Transaction and Receipt Management Specialist
+- Quality Assurance Engineer
+- Cloud Deployment Engineer
+
+Your responsibility is to **design, develop, test and deploy a functional resident application** integrated with the existing Smart Society 3.0 website.
+
+Do not stop at planning, wireframes, mockups or sample screenshots.
+
+Generate working source code, database structures, backend services, frontend screens, integration logic, tests and deployment instructions.
+
+Implement the application in phases. Verify each completed phase before proceeding.
+
+---
+
+# 2. PROJECT OBJECTIVE
+
+Develop a simple, beautiful and secure resident mobile application for apartment communities.
+
+The application must allow residents to:
+
+1. Log in using their registered mobile number and password.
+2. Access only their authorized flat details.
+3. View monthly maintenance dues and outstanding balances.
+4. Submit maintenance payment details.
+5. Upload UPI or bank payment evidence.
+6. Track payment approval status.
+7. Receive official PDF receipts after Treasurer approval.
+8. Download previous receipts.
+9. View their flat-wise maintenance statement.
+10. Register and track complaints.
+11. Read community announcements.
+12. View upcoming meetings and events.
+13. Receive payment reminders and important notifications.
+14. Update permitted profile details.
+
+The application must be free for residents to register, log in and use.
+
+Do not introduce per-resident subscription charges or pay-per-login fees.
+
+The association may bear reasonable hosting, development, notification or support costs.
+
+---
+
+# 3. CRITICAL REQUIREMENT – ACTUAL MOBILE APPLICATION
+
+Develop an **installable Progressive Web App (PWA)**.
+
+It must:
+
+- Open through a secure website URL.
+- Work in modern Android and iPhone browsers.
+- Be installable on supported devices through the browser.
+- Display an application icon on the phone's Home Screen.
+- Have a mobile-first design.
+- Use a full-screen, app-like navigation experience when installed.
+- Share the existing community website's branding.
+- Maintain persistent data using a secure backend.
+- Synchronize with the Smart Society 3.0 website.
+
+Do not create:
+
+- A Windows desktop application
+- Tkinter or PyQt software
+- Microsoft Access forms
+- A spreadsheet as the resident interface
+- A static visual demonstration with nonfunctional buttons
+- A separate disconnected financial database
+- An app that reveals all flats to every resident
+
+The final result must be a genuine working resident application.
+
+---
+
+# 4. APP BRANDING AND DESIGN
+
+Use the identity:
+
+**HAPPY HOMES PALACE-B**
+
+**My Community – Resident App**
+
+Tagline:
+
+**"Your Home. Your Community. Your Services."**
+
+Match the Smart Society 3.0 website visual style.
+
+### Colour palette
+
+- Warm ivory: #F8F6F1
+- Deep forest green: #234D3C
+- Sage green: #AFC5B5
+- Muted gold: #C5A46D
+- Charcoal: #26332E
+- White: #FFFFFF
+
+### Design requirements
+
+Create:
+
+- Elegant splash screen
+- Apartment photograph on the welcome screen
+- Modern mobile login
+- Resident dashboard
+- Rounded service cards
+- Simple icons
+- Clear maintenance status indicators
+- Easy payment upload
+- Professional PDF receipts
+- Beautiful announcements and event cards
+- Bottom navigation on mobile
+- Tablet and desktop-responsive layouts
+
+Use actual apartment photographs only when supplied or authorized.
+
+Use clearly identified placeholders otherwise.
+
+Do not use stock images to falsely represent the actual apartment.
+
+---
+
+# 5. APPLICATION NAVIGATION
+
+The resident app must contain these screens:
+
+1. Splash / Welcome
+2. Login
+3. Account Activation
+4. Forgot Password
+5. Resident Home
+6. My Flat
+7. Maintenance Dues
+8. Submit Payment
+9. Payment Status
+10. My Receipts
+11. Flat-wise Statement
+12. Register Complaint
+13. My Complaints
+14. Announcements
+15. Events
+16. Notifications
+17. My Profile
+18. Settings
+
+Use mobile bottom navigation:
+
+**Home | Maintenance | Complaints | Notices | Profile**
+
+Other screens should be accessible through service cards and contextual links.
+
+Include loading states, empty states, validation errors and offline/network-error messages.
+
+---
+
+# 6. RESIDENT LOGIN AND ACCOUNT ACTIVATION
+
+Residents must use custom accounts for this website and app.
+
+### Login credentials
+
+- Registered Indian mobile number
+- Private password
+
+Do not require a paid SMS OTP for every login.
+
+Do not use a shared password for all residents.
+
+Do not use the flat number or phone number as the password.
+
+### Activation process
+
+1. Treasurer or Secretary registers the resident.
+2. Assign the resident to an authorized Flat ID.
+3. Verify the resident's relationship with the flat.
+4. Create a pending account.
+5. Issue a secure, expiring, single-use account activation mechanism.
+6. Resident creates a private password.
+7. Account becomes active after verification.
+8. Resident logs in using mobile number and password.
+
+Never send a permanent password in WhatsApp, SMS or email.
+
+### Authentication security
+
+Implement:
+
+- Strong password hashing using an established password hashing library
+- Secure session handling
+- HttpOnly, Secure and SameSite cookies where appropriate
+- Brute-force protection
+- Rate limiting
+- Password reset with identity verification
+- Account suspension
+- Session revocation
+- Secure logout
+- Administrator MFA
+- Audit logs
+
+Never store plaintext passwords in Google Sheets or browser storage.
+
+Do not invent a homemade cryptographic authentication method.
+
+---
+
+# 7. FLAT-WISE PRIVACY – STRICT REQUIREMENT
+
+**This is a mandatory security condition.**
+
+A resident of Flat 101 must not view private data belonging to Flat 102.
+
+The same rule applies to all flats.
+
+### Authorization rules
+
+- Residents see only their assigned flats.
+- All access permissions are validated by the backend.
+- Flat IDs must not be trusted merely because the frontend sends them.
+- Residents cannot change a URL or API parameter to access another flat.
+- Residents cannot browse other residents' contact information.
+- Residents cannot download other flats' receipts.
+- Residents cannot view other flats' complaints.
+- Residents cannot edit financial balances.
+- Treasurer and Secretary access is controlled by assigned roles.
+- Resident access must be revoked when ownership or occupancy changes.
+
+One user may access multiple flats only when explicitly approved and configured.
+
+### Mandatory test
+
+Log in as Flat 101 and attempt to request Flat 102's:
+
+- Maintenance statement
+- Receipts
+- Payment records
+- Complaints
+- Personal details
+
+Every unauthorized request must be denied server-side.
+
+---
+
+# 8. RESIDENT HOME DASHBOARD
+
+Create an attractive mobile dashboard.
+
+### Header
+
+Display:
+
+- Apartment name
+- Welcome message
+- Authorized flat number
+- Notification bell
+- Resident profile
+
+### Featured section
+
+Display a photograph of the apartment and a welcoming community message.
+
+### Maintenance card
+
+Display:
+
+- Current monthly due
+- Total outstanding
+- Payment status
+- Last approved payment
+- Submit Payment button
+
+### Quick services
+
+Six service cards:
+
+1. My Maintenance
+2. My Receipts
+3. My Statement
+4. Complaints
+5. Announcements
+6. Community Events
+
+### Community updates
+
+Display the latest published notices and upcoming events.
+
+Do not display information about other residents' private financial accounts.
+
+---
+
+# 9. MAINTENANCE DUES MODULE
+
+The resident must be able to view their authorized flat's maintenance details.
+
+### Display fields
+
+- Flat Number
+- Maintenance Month
+- Gross Maintenance
+- Discount
+- Discount Reason
+- Net Payable
+- Amount Allocated
+- Outstanding Balance
+- Payment Status
+
+Supported statuses:
+
+- Unpaid
+- Partially Paid
+- Paid
+- Payment Submitted – Pending Approval
+- Advance Balance
+
+A pending submission must not be counted as a confirmed payment.
+
+Support historical maintenance rates, fixed concessions and percentage-based door-lock discounts.
+
+Use the same billing calculations as the Smart Society 3.0 website.
+
+Do not implement a second independent billing engine in the mobile app.
+
+---
+
+# 10. PAYMENT SUBMISSION MODULE
+
+Residents pay directly to the association bank account or authorized UPI account.
+
+The resident then submits payment information through the app.
+
+### Payment submission form
+
+Fields:
+
+- Authorized Flat Number
+- Maintenance Month or Months
+- Amount Paid
+- Payment Date
+- Payment Method
+- UPI Transaction ID / UTR / Bank Reference
+- Bank Date, if applicable
+- Screenshot or PDF Evidence
+- Remarks
+
+Accepted uploads:
+
+- JPG
+- PNG
+- PDF
+
+Validate file type, size and content.
+
+Store payment proofs in private storage.
+
+Do not place unrestricted public links to payment screenshots in Google Sheets.
+
+### Submission process
+
+1. Resident views maintenance dues.
+2. Resident pays using the association's published payment instructions.
+3. Resident opens Submit Payment.
+4. Resident enters payment details.
+5. Resident uploads payment proof.
+6. App validates the submission.
+7. Backend creates a unique PaymentSubmission ID.
+8. Status becomes Pending Treasurer Approval.
+9. Treasurer receives an in-app notification.
+10. Resident sees the submission in Payment Status.
+
+A screenshot or UTR number must not automatically mark the maintenance as paid.
+
+---
+
+# 11. TREASURER APPROVAL WORKFLOW
+
+Create a secure Treasurer Approval Dashboard within the website's committee administration area.
+
+### Pending payments table
+
+Display:
+
+- Submission ID
+- Flat Number
+- Resident
+- Amount
+- Payment Date
+- Payment Method
+- Bank Reference
+- Uploaded Proof
+- Submission Time
+- Status
+
+### Treasurer actions
+
+- View payment evidence
+- Verify against bank transactions
+- Approve
+- Request Clarification
+- Reject
+
+### Approval requirements
+
+Before approval, the Treasurer must verify the actual bank credit or properly documented cash collection.
+
+Store:
+
+- Approver ID
+- Approval timestamp
+- Verification method
+- Reference information
+- Remarks
+
+### On approval
+
+Perform a controlled financial posting operation:
+
+1. Lock or otherwise protect concurrent processing.
+2. Revalidate the submission and approval permissions.
+3. Ensure the bank transaction and payment are not already posted.
+4. Create one verified payment record.
+5. Allocate the payment to relevant bills.
+6. Generate a unique receipt number.
+7. Generate the PDF receipt.
+8. Update the flat ledger.
+9. Mark the submission approved.
+10. Notify the resident.
+
+If PDF generation or another external step fails, preserve a recoverable intermediate state and avoid duplicate financial posting when retried.
+
+### On rejection
+
+- Require a reason.
+- Record the decision.
+- Notify the resident.
+- Preserve the original submission and evidence.
+
+### On clarification request
+
+Allow the resident to provide additional information.
+
+Maintain the full history of the request.
+
+Never silently delete or overwrite a payment approval decision.
+
+---
+
+# 12. DIGITAL RECEIPTS
+
+Create official PDF receipts only after authorized payment approval.
+
+### Receipt fields
+
+- Association name
+- Receipt number
+- Receipt date
+- Flat number
+- Payer name
+- Amount received
+- Payment method
+- Bank reference
+- Maintenance months covered
+- Treasurer/issuer information
+- Receipt verification identifier
+
+### Resident features
+
+- View receipts
+- Download PDF
+- Print
+- Search by receipt number
+- Filter by financial year
+
+Receipts must be accessible only to the authorized resident and appropriate committee roles.
+
+Do not expose receipt files through unrestricted public Google Drive links.
+
+Support cancelled or reversed receipts with full audit history.
+
+---
+
+# 13. FLAT-WISE ACCOUNT STATEMENT
+
+Create a secure account statement for the resident's own flat.
+
+Columns:
+
+- Month
+- Gross Maintenance
+- Discount
+- Net Payable
+- Approved Payment Allocation
+- Receipt Number
+- Receipt Date
+- Outstanding Balance
+
+Support:
+
+- Monthly view
+- Financial-year view
+- Historical maintenance records
+- PDF/CSV download, if permitted
+- Opening and closing balances
+
+Calculate the statement from authoritative posted records.
+
+Do not treat pending resident payment submissions as revenue or settled invoices.
+
+---
+
+# 14. COMPLAINT MANAGEMENT
+
+Residents must be able to register complaints.
+
+### Categories
+
+- Water
+- Plumbing
+- Electrical
+- Lift
+- Security
+- Housekeeping
+- Drainage
+- Parking
+- Common Areas
+- Other
+
+### Form fields
+
+- Complaint Type
+- Title
+- Description
+- Optional Photo
+- Priority
+- Submission Date
+
+Automatically generate a unique complaint number.
+
+### Complaint statuses
+
+- Submitted
+- Acknowledged
+- Assigned
+- In Progress
+- Resolved
+- Closed
+- Reopened
+
+### Workflow
+
+Resident Submits → Secretary Reviews → Staff Assigned → Work Updated → Resolved → Resident Confirms Closure
+
+Maintain complaint activity history.
+
+Residents can view their own complaint records.
+
+The Secretary can manage authorized complaints from the community website.
+
+Notify residents when complaint statuses change.
+
+---
+
+# 15. ANNOUNCEMENTS AND EVENTS
+
+Synchronize with the existing Smart Society 3.0 community website.
+
+The Secretary should publish announcements and events only once.
+
+Both the website and resident app must display the same published information.
+
+### Announcements
+
+- Water supply notices
+- Lift maintenance
+- Monthly maintenance reminders
+- Committee meeting circulars
+- Security alerts
+- Community information
+
+### Events
+
+- Community meetings
+- Festivals
+- Celebrations
+- Resident activities
+
+Each notice or event must have:
+
+- ID
+- Title
+- Description
+- Publication date
+- Event date, where applicable
+- Category
+- Target audience
+- Status
+
+Support society-wide and building-specific notices.
+
+Never expose private financial details in public announcements.
+
+---
+
+# 16. NOTIFICATIONS MODULE
+
+Create an in-app notification centre.
+
+### Notification events
+
+- Maintenance bill generated
+- Maintenance due reminder
+- Payment submission received
+- Payment approval
+- Payment rejection
+- Receipt generated
+- Complaint status changed
+- New society announcement
+- Upcoming event
+- Emergency notice
+
+Each notification must contain:
+
+- Notification ID
+- Authorized recipient
+- Category
+- Message
+- Created timestamp
+- Read status
+- Related record ID
+
+### Phase 1
+
+Use in-app notifications.
+
+### Phase 2
+
+Add opt-in Web Push notifications for supported devices and installed PWAs.
+
+Do not rely on push delivery as the sole source of critical information.
+
+### Optional integrations
+
+- SMS
+- WhatsApp Business API
+- Email
+
+Keep chargeable messaging integrations disabled initially.
+
+Residents must be able to configure optional notification preferences.
+
+---
+
+# 17. WEBSITE AND APP SYNCHRONIZATION
+
+The resident app and community website must share the same financial source of truth.
+
+Do not maintain independent payment balances in the mobile app.
+
+### Synchronization rules
+
+- Website-generated bills appear in the resident app.
+- Resident payment submissions appear in the Treasurer Dashboard.
+- Treasurer approval updates the shared financial records.
+- Approved receipts become available in the resident app.
+- Website announcements appear in the app.
+- Resident complaints appear in the committee complaint dashboard.
+- Committee updates appear in the resident app after successful saving.
+
+Use server-side APIs and authorization for every operation.
+
+Implement refresh behavior, appropriate caching and error handling.
+
+Do not allow offline cached financial records to be treated as authoritative.
+
+---
+
+# 18. RECOMMENDED LOW-COST ARCHITECTURE
+
+Use:
+
+**Public Community Website**
+- HTML, CSS, JavaScript
+- Existing Smart Society 3.0 visual design
+
+**Resident App**
+- Progressive Web App
+- Mobile-first responsive frontend
+- Web App Manifest
+- Service Worker
+
+**Secure Backend**
+- Cloudflare Workers or an equivalent suitable lightweight backend
+
+**Authentication**
+- Secure mobile-number/password accounts
+- Backend-managed sessions
+- Cloudflare D1 or an equivalent small identity database
+
+**Maintenance Database**
+- Google Sheets
+
+**Documents**
+- Private Google Drive folders
+
+**PDF Receipts**
+- Google Apps Script and Google Docs templates
+
+**Notifications**
+- In-app initially
+- Web Push optionally
+
+Use a supported, secure server-side integration to Google Sheets and Drive.
+
+Never expose credentials in client-side JavaScript.
+
+If integrating Cloudflare and Google Apps Script requires a server-to-server credential mechanism, implement that mechanism securely and document it.
+
+Do not assume an ordinary publicly deployed Apps Script URL provides safe authentication for financial operations.
+
+---
+
+# 19. DATABASE STRUCTURE
+
+Retain the Smart Society 3.0 Google Sheets data structure.
+
+Add:
+
+### Resident and authorization records
+
+- Residents
+- FlatAccess
+- AccountActivations
+
+### Payment workflow
+
+- PaymentSubmissions
+- PaymentApprovals
+- PaymentEvidence
+
+### Complaints
+
+- Complaints
+- ComplaintHistory
+
+### Notifications
+
+- Notifications
+- NotificationPreferences
+- DeviceSubscriptions
+
+Maintain existing:
+
+- Flats
+- Maintenance
+- Payments
+- Allocations
+- Receipts
+- Announcements
+- Events
+- Settings
+- AuditLog
+
+Store identity credentials and sessions in a secure backend database rather than Google Sheets.
+
+Define clear ownership of every record so conflicting writes cannot occur across systems.
+
+---
+
+# 20. APP SOURCE CODE STRUCTURE
+
+Create a maintainable project with clearly separated frontend and backend.
+
+Suggested structure:
+
+```text
+SmartSociety4/
+│
+├── resident-app/
+│   ├── index.html
+│   ├── login.html
+│   ├── manifest.webmanifest
+│   ├── service-worker.js
+│   ├── styles/
+│   ├── scripts/
+│   ├── components/
+│   ├── pages/
+│   └── assets/
+│
+├── backend/
+│   ├── authentication/
+│   ├── authorization/
+│   ├── flats/
+│   ├── maintenance/
+│   ├── submissions/
+│   ├── approvals/
+│   ├── receipts/
+│   ├── complaints/
+│   ├── announcements/
+│   ├── notifications/
+│   └── integrations/
+│
+├── database/
+│   ├── migrations/
+│   └── schema/
+│
+├── tests/
+│
+└── docs/
+```
+
+Generate complete source code.
+
+Do not use dummy buttons in production-ready screens.
+
+Provide environment configuration templates without real secrets.
+
+---
+
+# 21. DEVELOPMENT ROADMAP
+
+## PHASE 1 – MOBILE APP INTERFACE
+
+Develop:
+
+- Welcome screen
+- Login screen
+- Resident dashboard
+- My Flat
+- Maintenance Dues
+- Payment Submission
+- Payment Status
+- Receipts
+- Complaints
+- Announcements
+- Events
+- Notifications
+- Profile
+
+**Deliverable:** Complete mobile-responsive frontend.
+
+## PHASE 2 – AUTHENTICATION AND PRIVACY
+
+Develop:
+
+- Resident account onboarding
+- Mobile number/password login
+- Secure sessions
+- Account activation
+- Password recovery
+- Flat-wise permissions
+- Treasurer and Secretary roles
+
+**Deliverable:** Secure authenticated resident portal.
+
+## PHASE 3 – MAINTENANCE SYNCHRONIZATION
+
+Develop:
+
+- Shared Google Sheets connection
+- Maintenance dues retrieval
+- Flat-wise ledger
+- Historical payments
+- Authorized record access
+
+**Deliverable:** Correct private financial views.
+
+## PHASE 4 – PAYMENT APPROVAL
+
+Develop:
+
+- Payment submission
+- Proof upload
+- Treasurer approval dashboard
+- Bank verification records
+- Financial posting
+- PDF receipts
+- Resident status updates
+
+**Deliverable:** Working payment-to-receipt workflow.
+
+## PHASE 5 – COMPLAINTS AND COMMUNITY SERVICES
+
+Develop:
+
+- Complaint submission
+- Complaint assignment
+- Complaint tracking
+- Announcements
+- Events
+- In-app notifications
+
+**Deliverable:** Fully functional community services.
+
+## PHASE 6 – PWA INSTALLATION AND TESTING
+
+Develop:
+
+- App manifest
+- Service worker
+- Installable icons
+- Responsive layouts
+- Appropriate offline fallback
+- Secure logout and session revocation
+
+Test:
+
+- Android
+- iPhone
+- Desktop browser
+- Authorized access
+- Payment posting
+- Receipt generation
+- Complaint tracking
+- Backup and recovery
+
+**Deliverable:** Controlled pilot release.
+
+---
+
+# 22. INITIAL PILOT – 10 FLATS
+
+Use Flats 101–110.
+
+Create fictional sample residents and registered mobile numbers that cannot be mistaken for real contact details.
+
+Use sample maintenance charges and clearly labeled demonstration transactions.
+
+Test:
+
+1. Flat 101 logs in.
+2. Flat 101 views only its account.
+3. Flat 101 submits payment details.
+4. Treasurer sees the pending request.
+5. Treasurer verifies payment.
+6. Treasurer approves.
+7. One verified payment is posted.
+8. Correct invoice allocations are created.
+9. One official PDF receipt is issued.
+10. Flat 101 downloads its receipt.
+11. Flat 101 registers a complaint.
+12. Secretary updates the complaint.
+13. Flat 101 receives a notification.
+14. Secretary publishes an event.
+15. The event appears on the website and app.
+
+Test unauthorized access from Flat 101 to Flat 102 and ensure every request is denied.
+
+---
+
+# 23. TESTING AND QUALITY ASSURANCE
+
+Provide automated tests for:
+
+- Resident authentication
+- Incorrect passwords
+- Account activation and recovery
+- Cross-flat access restrictions
+- Treasurer role authorization
+- Payment proof submission
+- Duplicate reference detection
+- Duplicate approval prevention
+- Failed or interrupted financial posting
+- Receipt uniqueness
+- Payment allocations
+- Complaint status transitions
+- Notification recipient targeting
+- Logout and session revocation
+- Google Sheets synchronization
+- Backup restoration
+
+Never claim successful testing unless tests were executed.
+
+Produce a test report documenting pass/fail status.
+
+---
+
+# 24. COST REQUIREMENTS
+
+The application must be designed to minimize running costs.
+
+Prioritize:
+
+- Free or low-cost website hosting
+- Low-cost authentication infrastructure
+- No per-resident login fees
+- No mandatory SMS OTP charges
+- No native mobile app development initially
+- Direct association bank/UPI payments
+- In-app notifications first
+- Existing Google Sheets financial records
+- Existing Google Drive document storage
+
+Clearly identify any feature that requires paid infrastructure.
+
+Never claim free tiers have unlimited capacity or that all third-party services will remain free indefinitely.
+
+---
+
+# 25. FINAL DELIVERABLES
+
+Produce:
+
+1. Complete resident app UI design
+2. Installable PWA frontend
+3. Secure custom login system
+4. Resident-to-flat authorization
+5. Maintenance account synchronization
+6. Payment submission forms
+7. Private payment-proof upload
+8. Treasurer approval dashboard
+9. Official receipt generation
+10. Receipt download and history
+11. Flat-wise ledger
+12. Complaint registration and tracking
+13. Announcements and events
+14. In-app notification centre
+15. Website integration
+16. Backend source code
+17. Database schemas and migrations
+18. Security tests
+19. Deployment instructions
+20. Administrator and resident user manuals
+
+---
+
+# 26. STRICT DEVELOPMENT INSTRUCTIONS
+
+Follow these instructions:
+
+- Build a real mobile-friendly application.
+- Preserve the Smart Society 3.0 community website.
+- Use the same financial records for website and app.
+- Do not allow residents to see unauthorized flats.
+- Do not store passwords in Google Sheets.
+- Do not expose private payment evidence publicly.
+- Do not automatically approve uploaded payments.
+- Require Treasurer verification before generating official receipts.
+- Prevent duplicate posting and receipt generation.
+- Implement server-side permission checks.
+- Keep resident accounts free of login or subscription charges.
+- Maintain a beautiful mobile design.
+- Keep the technology affordable.
+- Generate working source files.
+- Test each development phase.
+- Document all unfinished integrations honestly.
+
+---
+
+# 27. START DEVELOPMENT NOW
+
+**Step 1:** Review the Smart Society 3.0 community website design and the attached Smart Society 4.0 Resident App Blueprint PDF.
+
+**Step 2:** Produce the integrated website-and-app architecture, database schema, screen designs and development backlog.
+
+**Step 3:** Build the resident mobile app interface with the same branding as the community website.
+
+**Step 4:** Implement secure mobile-number/password accounts and strict flat-level access.
+
+**Step 5:** Connect authorized maintenance data from the existing Google Sheets backend.
+
+**Step 6:** Implement payment-proof submission and Treasurer approval.
+
+**Step 7:** Implement official receipts, complaints, announcements and notifications.
+
+**Step 8:** Test the full system using Flats 101–110 and prepare a controlled deployment.
+
+Do not stop after writing a blueprint. If development tools are available, create the actual frontend, backend, migrations, tests and configuration files.
+
+**FINAL EXPECTED RESULT:**
+
+A beautiful, installable resident mobile application integrated with the existing apartment community website, allowing every resident to log in securely, view their authorized flat, submit payments for Treasurer approval, receive PDF receipts, register complaints and stay informed about community activities.
+
+The resident app must be functional, private, reliable, simple to use and affordable to operate.

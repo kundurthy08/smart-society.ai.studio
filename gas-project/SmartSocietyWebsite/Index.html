@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <base target="_top" />
+  <title>HAPPY HOMES PALACE-B — Owners Welfare Association</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <?!= include('Styles'); ?>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="brand" onclick="navigate('home'); return false;">HAPPY HOMES PALACE-B</a>
+      <nav class="nav-links">
+        <a href="#home" onclick="navigate('home'); return false;">Home</a>
+        <a href="#community" onclick="navigate('home', 'community'); return false;">Our Community</a>
+        <a href="#committee" onclick="navigate('home', 'committee'); return false;">Association</a>
+        <a href="#gallery" onclick="navigate('home', 'gallery'); return false;">Gallery</a>
+        <a href="#notices" onclick="navigate('home', 'notices'); return false;">Notices</a>
+        <a href="#contact" onclick="navigate('home', 'contact'); return false;">Contact</a>
+      </nav>
+      <button class="btn btn-primary" onclick="navigate('dashboard')">Resident Login</button>
+    </div>
+  </header>
+
+  <main id="public-site">
+    <section class="hero container">
+      <div>
+        <p class="kicker">HAPPY HOMES PALACE-B · Owners Welfare Association</p>
+        <h1>WELCOME TO HAPPY HOMES PALACE-B</h1>
+        <p class="tagline">More Than an Apartment. A Place to Belong.</p>
+        <p class="subtitle">A welcoming community where neighbours connect, families thrive, and we work together to make every day better.</p>
+        <div class="hero-actions">
+          <a href="#community" class="btn btn-primary">Explore Our Community</a>
+          <a href="#services" class="btn btn-secondary">Resident Services</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Community Today</h3>
+        <p>Backed by Google Sheets (<code>Smart_Society_Database</code>) and Google Drive storage.</p>
+        <div class="metric-grid">
+          <div class="metric-box"><span class="label">Pilot Residences</span><strong>101 – 110</strong></div>
+          <div class="metric-box"><span class="label">Community Wing</span><strong>Palace-B</strong></div>
+          <div class="metric-box"><span class="label">Shared Facilities</span><strong>6 Amenities</strong></div>
+          <div class="metric-box"><span class="label">Association</span><strong>Est. 2021</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="community" class="section container">
+      <h2>A Community Built on Togetherness.</h2>
+      <p class="subtitle">Happy Homes Palace-B is more than a residential complex. It is a community where residents share experiences, celebrate traditions, and work together to create a peaceful, safe and welcoming environment.</p>
+    </section>
+
+    <section id="services" class="section container">
+      <h2>Everything You Need, Right at Home.</h2>
+      <div class="feature-grid">
+        <article class="card"><h3>Maintenance Dues</h3><p>View monthly maintenance dues and outstanding balances.</p></article>
+        <article class="card"><h3>Digital Receipts</h3><p>Access and download numbered PDF maintenance receipts.</p></article>
+        <article class="card"><h3>My Account</h3><p>View flat-wise financial statements and ledger history.</p></article>
+        <article class="card"><h3>Complaints</h3><p>Register and track maintenance complaints.</p></article>
+        <article class="card"><h3>Announcements</h3><p>Read important resident communications and circulars.</p></article>
+        <article class="card"><h3>Documents</h3><p>Access permitted association bye-laws and documents.</p></article>
+      </div>
+    </section>
+
+    <section id="contact" class="section container">
+      <h2>Contact &amp; Association Office</h2>
+      <form id="contact-form" class="form-grid" onsubmit="handleContactSubmit(event)">
+        <input type="text" id="c-name" placeholder="Full Name" required />
+        <input type="email" id="c-email" placeholder="Email Address" required />
+        <input type="text" id="c-subject" placeholder="Flat No. / Subject" required />
+        <textarea id="c-message" rows="3" placeholder="Message" required></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+        <div id="contact-status" class="status-msg"></div>
+      </form>
+    </section>
+  </main>
+
+  <section id="admin-shell" class="admin-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-title">Management Console</div>
+      <button onclick="showAdminTab('dashboard')" class="side-link active">Dashboard</button>
+      <button onclick="showAdminTab('flats')" class="side-link">Flat Register</button>
+      <button onclick="showAdminTab('maintenance')" class="side-link">Maintenance</button>
+      <button onclick="showAdminTab('payments')" class="side-link">Payments</button>
+      <button onclick="showAdminTab('receipts')" class="side-link">Receipts</button>
+      <button onclick="showAdminTab('reports')" class="side-link">Reports</button>
+      <button onclick="navigate('home')" class="side-link">Back to Community Site</button>
+    </aside>
+    <div class="admin-main">
+      <div id="admin-view-content">Loading...</div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>HAPPY HOMES PALACE-B Owners Welfare Association © 2026</span>
+      <span>Our Home, Our Community · office@happyhomespalaceb.example.in</span>
+    </div>
+  </footer>
+
+  <script>
+    window.INITIAL_USER = <?!= initialUserJson ?>;
+    window.PUBLIC_SETTINGS = <?!= publicSettingsJson ?>;
+  </script>
+  <?!= include('Scripts'); ?>
+</body>
+</html>

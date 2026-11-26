@@ -1,0 +1,6 @@
+{
+  "name": "Smart Society",
+  "description": "Responsive Apartment Maintenance Management Website for billing, verified payment allocations, numbered PDF receipts, flat-wise ledgers, and financial reports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

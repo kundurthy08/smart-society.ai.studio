@@ -1,0 +1,96 @@
+<script>
+  function navigate(view, anchor) {
+    var pub = document.getElementById('public-site');
+    var adm = document.getElementById('admin-shell');
+    if (view === 'home') {
+      pub.classList.remove('hidden');
+      adm.classList.add('hidden');
+      if (anchor) {
+        var el = document.getElementById(anchor);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      pub.classList.add('hidden');
+      adm.classList.remove('hidden');
+      showAdminTab(view);
+    }
+  }
+
+  function showAdminTab(tab) {
+    var content = document.getElementById('admin-view-content');
+    content.innerHTML = '<p>Loading ' + tab + ' from Smart_Society_Database...</p>';
+
+    if (tab === 'dashboard') {
+      google.script.run.withSuccessHandler(function (data) {
+        var rows = data.outstandingFlats.map(function (f) {
+          return '<tr><td>' + f.flatNumber + '</td><td>' + f.ownerName + '</td><td>' + f.unpaidMonths + '</td><td>₹' + f.totalDue + '</td></tr>';
+        }).join('');
+        content.innerHTML =
+          '<h2>Dashboard (' + data.selectedMonth + ')</h2>' +
+          '<div class="feature-grid" style="margin-top:16px">' +
+          '<div class="card"><div>Total Flats</div><strong>' + data.totalFlats + '</strong></div>' +
+          '<div class="card"><div>Monthly Demand</div><strong>₹' + data.monthlyDemandNet + '</strong></div>' +
+          '<div class="card"><div>Total Collections</div><strong>₹' + data.monthlyCollections + '</strong></div>' +
+          '</div>' +
+          '<h3 style="margin-top:24px">Outstanding Flats</h3>' +
+          '<table><thead><tr><th>Flat</th><th>Owner</th><th>Unpaid Months</th><th>Total Due</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      }).withFailureHandler(showGasError).getDashboardData();
+    } else if (tab === 'flats') {
+      google.script.run.withSuccessHandler(function (flats) {
+        var rows = flats.map(function (f) {
+          return '<tr><td>' + f.FlatNumber + '</td><td>' + f.OwnerName + '</td><td>' + f.Mobile + '</td><td>' + f.MaintenanceCategory + '</td><td>' + f.OccupancyStatus + '</td></tr>';
+        }).join('');
+        content.innerHTML = '<h2>Flat Register</h2><table><thead><tr><th>Flat</th><th>Owner</th><th>Mobile</th><th>Category</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      }).withFailureHandler(showGasError).Flats_list();
+    } else if (tab === 'maintenance') {
+      google.script.run.withSuccessHandler(function (bills) {
+        var rows = bills.map(function (b) {
+          return '<tr><td>' + b.BillingMonth + '</td><td>' + b.FlatNumber + '</td><td>₹' + b.GrossAmount + '</td><td>₹' + b.NetAmount + '</td><td>₹' + b.BalanceDue + '</td><td>' + b.Status + '</td></tr>';
+        }).join('');
+        content.innerHTML = '<h2>Maintenance Billing</h2><table><thead><tr><th>Month</th><th>Flat</th><th>Gross</th><th>Net</th><th>Due</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      }).withFailureHandler(showGasError).Billing_listByMonth();
+    } else if (tab === 'payments') {
+      google.script.run.withSuccessHandler(function (payments) {
+        var rows = payments.map(function (p) {
+          return '<tr><td>' + p.PaymentID + '</td><td>' + p.FlatNumber + '</td><td>₹' + p.Amount + '</td><td>' + p.PaymentMethod + '</td><td>' + p.TargetMonths + '</td><td>' + p.Status + '</td></tr>';
+        }).join('');
+        content.innerHTML = '<h2>Payments Ledger</h2><table><thead><tr><th>Payment ID</th><th>Flat</th><th>Amount</th><th>Method</th><th>Months</th><th>Status</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      }).withFailureHandler(showGasError).Payments_list();
+    } else if (tab === 'receipts') {
+      google.script.run.withSuccessHandler(function (receipts) {
+        var rows = receipts.map(function (r) {
+          return '<tr><td>' + r.ReceiptNumber + '</td><td>' + r.ReceiptDate + '</td><td>' + r.FlatNumber + '</td><td>₹' + r.AmountReceived + '</td><td><a href="' + r.PdfFileUrl + '" target="_blank">Open PDF</a></td></tr>';
+        }).join('');
+        content.innerHTML = '<h2>Receipts Registry</h2><table><thead><tr><th>Receipt No</th><th>Date</th><th>Flat</th><th>Amount</th><th>PDF</th></tr></thead><tbody>' + rows + '</tbody></table>';
+      }).withFailureHandler(showGasError).Receipts_list();
+    } else if (tab === 'reports') {
+      google.script.run.withSuccessHandler(function (rows) {
+        var htmlRows = rows.map(function (r) {
+          return '<tr><td>' + r.BillingMonth + '</td><td>' + r.FlatNumber + '</td><td>₹' + r.NetAmount + '</td><td>₹' + r.AllocatedAmount + '</td><td>₹' + r.BalanceDue + '</td></tr>';
+        }).join('');
+        content.innerHTML = '<h2>Financial Reports</h2><table><thead><tr><th>Month</th><th>Flat</th><th>Billed</th><th>Collected</th><th>Due</th></tr></thead><tbody>' + htmlRows + '</tbody></table>';
+      }).withFailureHandler(showGasError).Reports_get('monthly_collection', {});
+    }
+  }
+
+  function showGasError(err) {
+    document.getElementById('admin-view-content').innerHTML =
+      '<div class="card" style="border-color:#dc2626;color:#991b1b;"><strong>Error:</strong> ' + (err.message || err) + '</div>';
+  }
+
+  function handleContactSubmit(e) {
+    e.preventDefault();
+    var payload = {
+      name: document.getElementById('c-name').value,
+      email: document.getElementById('c-email').value,
+      subject: document.getElementById('c-subject').value,
+      message: document.getElementById('c-message').value
+    };
+    google.script.run.withSuccessHandler(function (res) {
+      document.getElementById('contact-status').textContent = res.message;
+      document.getElementById('contact-form').reset();
+    }).withFailureHandler(function (err) {
+      document.getElementById('contact-status').textContent = err.message || err;
+    }).submitPublicContact(payload);
+  }
+</script>
